@@ -1,3 +1,4 @@
+import javax.swing.ImageIcon;
 import javax.swing.JOptionPane;
 
 public class Ejercicio1Vet {
@@ -18,7 +19,8 @@ public class Ejercicio1Vet {
 			break;
 			
 			case "Salir":
-				JOptionPane.showMessageDialog(null, "Saliendo...");
+				JOptionPane.showMessageDialog(null, "Saliendo...", null, JOptionPane.DEFAULT_OPTION, new ImageIcon(Ejercicio1Vet.class.getResource("img/salir.gif")));
+
 			break;
 			}
 		} while (!eleccion.equals("Salir"));

@@ -5,21 +5,21 @@ import javax.swing.JOptionPane;
 public class Veterinaria {
 		private String nombreAnimal;
 		private String nombreDueño;
-		private LocalDate cosulta;
+		private LocalDate consulta;
 		private String motivo;
 		private boolean estado;
-		private LocalDate cosultaProxima;
-		private double peso;
+		private LocalDate consultaProxima;
+		private String peso;
 		private boolean vacunas;
 		private String clientes;
 		
-		public Veterinaria(String nombreAnimal, String nombreDueño, LocalDate cosulta, String motivo, boolean estado, LocalDate cosultaProxima, int peso, boolean vacunas, String clientes) {
+		public Veterinaria(String nombreAnimal, String nombreDueño, LocalDate consulta, String motivo, boolean estado, LocalDate consultaProxima, String peso, boolean vacunas, String clientes) {
 			this.nombreAnimal=nombreAnimal;
 			this.nombreDueño=nombreDueño;
-			this.cosulta=cosulta;
+			this.consulta=consulta;
 			this.motivo=motivo;
 			this.estado=estado;
-			this.cosultaProxima=cosultaProxima;
+			this.consultaProxima=consultaProxima;
 			this.peso=peso;
 			this.vacunas=vacunas;
 			this.clientes=clientes;
@@ -27,11 +27,11 @@ public class Veterinaria {
 		public Veterinaria() {
 			this.nombreAnimal="sin nombre";
 			this.nombreDueño="sin nombre";
-			this.cosulta=LocalDate.now();
+			this.consulta=LocalDate.now();
 			this.motivo="sin motivo";
 			this.estado=false;
-			this.cosultaProxima=LocalDate.now();
-			this.peso=0;
+			this.consultaProxima=LocalDate.now();
+			this.peso="";
 			this.vacunas=false;
 			this.clientes="";
 		}
@@ -85,7 +85,8 @@ public class Veterinaria {
 		}
 		
 		public void setCosultaProxima() {
-			this.cosultaProxima = LocalDate.of(validarNumeros("Ingrese año"), validarNumeros("Ingrese mes"), validarNumeros("Ingrese dia"));
+			this.consultaProxima = LocalDate.of(validarNumeros("Ingrese año"), validarNumeros("Ingrese mes"), validarNumeros("Ingrese dia"));
+			JOptionPane.showMessageDialog(null, "Agendando proximo turno...");
 		}
 		
 		public void agregarClientes() {
@@ -95,7 +96,12 @@ public class Veterinaria {
 			do {
 				this.nombreAnimal = JOptionPane.showInputDialog("Ingrese el nombre del animal");
 			} while (!ValidarNombre(nombreAnimal));
-			String motivo = JOptionPane.showInputDialog("Ingrese el motivo de su consulta");
+			do {
+				this.motivo = JOptionPane.showInputDialog("Ingrese el motivo de su consulta");
+			} while (!ValidarNombre(motivo));
+			do {
+				this.peso= JOptionPane.showInputDialog("Ingrese el peso del animal");
+			} while (!ValidarPeso(peso));
 			
 			String[] estadoMascota = {"Esta todo bien","Necesita venir dentro de poco"};
 			int estado= JOptionPane.showOptionDialog(null, "Como se encuentra",null,0,0,null, estadoMascota, estadoMascota[0]);
@@ -115,17 +121,43 @@ public class Veterinaria {
 			if (this.estado==false || this.vacunas==false) {
 				setCosultaProxima();
 			}
-			this.clientes = this.clientes + "\n Nombre del dueño: " + nombreDueño + ", nombre de la mascota: " + nombreAnimal + ", motivo de la consulta: "+ motivo + ", estado de la mascota " + mostrarEstado(this.estado) +", vacunas: "+mostrarEstado(this.vacunas) + ", proxima consulta: "+cosultaProxima;
+			if (this.consultaProxima.isBefore(LocalDate.now())) {
+				do {
+					JOptionPane.showMessageDialog(null, "Hubo un error con la fecha ingresada, vuelva a ingresarla");
+					setCosultaProxima();
+				} while (this.consultaProxima.isBefore(LocalDate.now()));
+			}
+			this.clientes = this.clientes + "\n Fecha de la consulta: "+consulta+", nombre del dueño: " + nombreDueño + ", nombre de la mascota: " + nombreAnimal + ", motivo de la consulta: "+ motivo + ", peso de la mascota: "+ peso +"kg , estado de la mascota: " + mostrarEstado(this.estado) +", vacunas: "+mostrarEstado(this.vacunas) + ", proxima consulta: "+consultaProxima;
 		}
 		
 		public String getClientes() {
 			return clientes;
 		}
+		
+		public static boolean ValidarPeso(String peso) {
+			boolean letra = false;
+			if (peso.isEmpty()) {
+				JOptionPane.showMessageDialog(null, "No puede estar vacio");
+				return false;
+			} else {
+				for (int i = 0; i < peso.length(); i++) {
+					if (Character.isLetter(peso.charAt(i))) {
+						letra=true;
+					}
+				}
+				if (letra==true) {
+					JOptionPane.showMessageDialog(null, "No puede tener letras el DNI");
+					return false;
+				} else {
+					return true;
+				}
+			}	
+		}	
 
 		@Override
 		public String toString() {
-			return "Veterinaria [nombreAnimal=" + nombreAnimal + ", nombreDueño=" + nombreDueño + ", cosulta=" + cosulta
-					+ ", motivo=" + motivo + ", estado=" + mostrarEstado(estado) + ", cosultaProxima=" + cosultaProxima + ", peso="
+			return "Veterinaria [nombreAnimal=" + nombreAnimal + ", nombreDueño=" + nombreDueño + ", consulta=" + consulta
+					+ ", motivo=" + motivo + ", estado=" + mostrarEstado(estado) + ", cosultaProxima=" + consultaProxima + ", peso="
 					+ peso + ", vacunas=" + mostrarEstado(vacunas) + "]";
 		}
 }
