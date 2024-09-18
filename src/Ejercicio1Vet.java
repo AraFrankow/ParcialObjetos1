@@ -4,20 +4,26 @@ public class Ejercicio1Vet {
 
 	public static void main(String[] args) {
 		Veterinaria clientes = new Veterinaria();
-		String nombreDueño;
+		String[] menu = {"Ingrese cliente nuevo","Revise clientes anteriores", "Salir"};
+		String eleccion;
 		do {
-			nombreDueño = JOptionPane.showInputDialog("Ingrese el nombre del dueño");
-		} while (!clientes.ValidarNombre(nombreDueño));
-		String nombreMascota;
-		do {
-			nombreMascota = JOptionPane.showInputDialog("Ingrese el nombre del animal");
-		} while (!clientes.ValidarNombre(nombreMascota));
-		String motivo = JOptionPane.showInputDialog("Ingrese el motivo de su consulta");
+			eleccion = (String)JOptionPane.showInputDialog(null, "Que quiere hacer?", null, 0, null, menu, menu[0]);
+			switch (eleccion) {
+			case "Ingrese cliente nuevo":
+				clientes.agregarClientes();
+				break;
+				
+			case "Revise clientes anteriores":
+				JOptionPane.showMessageDialog(null, clientes.getClientes());
+			break;
+			
+			case "Salir":
+				JOptionPane.showMessageDialog(null, "Saliendo...");
+			break;
+			}
+		} while (!eleccion.equals("Salir"));
 		
-		String[] menu = {"Esta todo bien","Necesita venir dentro de poco"};
-		int estado= JOptionPane.showOptionDialog(null, "Como se encuentra",null,0,0,null, menu, menu[0]);
-		int vacunas= JOptionPane.showOptionDialog(null, "Como estan sus vacunas?",null,0,0,null, menu, menu[0]);
-		JOptionPane.showMessageDialog(null, clientes);
+		
 
 	}
 
