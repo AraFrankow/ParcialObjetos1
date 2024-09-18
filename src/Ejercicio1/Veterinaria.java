@@ -1,3 +1,4 @@
+package Ejercicio1;
 import java.time.LocalDate;
 
 import javax.swing.JOptionPane;
@@ -62,8 +63,8 @@ public class Veterinaria {
 			} else {
 				return "Necesita venir dentro de poco";
 			}
-
 		}
+		
 		public int validarNumeros(String numero) {
 			boolean numer ;
 			String num ="" ;
@@ -146,7 +147,7 @@ public class Veterinaria {
 					}
 				}
 				if (letra==true) {
-					JOptionPane.showMessageDialog(null, "No puede tener letras el DNI");
+					JOptionPane.showMessageDialog(null, "No puede tener letras el peso");
 					return false;
 				} else {
 					return true;
