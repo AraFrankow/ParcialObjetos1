@@ -131,9 +131,6 @@ public class Veterinaria {
 			this.clientes = this.clientes + "\n Fecha de la consulta: "+consulta+", nombre del dueño: " + nombreDueño + ", nombre de la mascota: " + nombreAnimal + ", motivo de la consulta: "+ motivo + ", peso de la mascota: "+ peso +"kg , estado de la mascota: " + mostrarEstado(this.estado) +", vacunas: "+mostrarEstado(this.vacunas) + ", proxima consulta: "+consultaProxima;
 		}
 		
-		public String getClientes() {
-			return clientes;
-		}
 		
 		public static boolean ValidarPeso(String peso) {
 			boolean letra = false;
@@ -154,6 +151,65 @@ public class Veterinaria {
 				}
 			}	
 		}	
+		
+		// SET Y GET
+		public String getClientes() {
+			return clientes;
+		}
+		public boolean getVacunas() {
+			return vacunas;
+		}
+		public String getPeso() {
+			return peso;
+		}
+		public LocalDate getConsultaProxima() {
+			return consultaProxima;
+		}
+		public boolean getEstado() {
+			return estado;
+		}
+		public String getMotivo() {
+			return motivo;
+		}
+		public LocalDate getConsulta() {
+			return consulta;
+		}
+		public String getNombreDueño() {
+			return nombreDueño;
+		}
+		public String getNombreAnimal() {
+			return nombreAnimal;
+		}
+		
+		
+		public void setClientes(String clientes) {
+			this.clientes=clientes;
+		}
+		public void setVacunas(boolean vacunas) {
+			this.vacunas=vacunas;
+		}
+		public void setPeso(String peso) {
+			this.peso=peso;
+		}
+		public void setCosultaProxima1() {
+			this.consultaProxima = LocalDate.of(validarNumeros("Ingrese año"), validarNumeros("Ingrese mes"), validarNumeros("Ingrese dia"));
+			JOptionPane.showMessageDialog(null, "Agendando proximo turno...");
+		}
+		public void setEstado(boolean estado) {
+			this.estado=estado;
+		}
+		public void setMotivo(String motivo) {
+			this.motivo=motivo;
+		}
+		public void setConsulta(LocalDate consulta) {
+			this.consulta=consulta;
+		}
+		public void setNombreDueño(String nombreDueño) {
+			this.nombreDueño=nombreDueño;
+		}
+		public void setNombreAnimal(String nombreAnimal) {
+			this.nombreAnimal=nombreAnimal;
+		}
 
 		@Override
 		public String toString() {

@@ -89,42 +89,7 @@ public class Biblioteca {
 		}
 	}
 	
-	public String getNombreLibro() {
-		return nombreLibro;
-	}
 	
-	public String getAutor() {
-		return nombreLibro;
-	}
-	
-	public String getLanzamiento() {
-		return nombreLibro;
-	}
-	
-	public void setNombreLibro(String nombreLibro) {
-		this.nombreLibro=nombreLibro;
-	}
-	
-	public void setAutor(String autor) {
-		this.autor=autor;
-	}
-	
-	public void setLanzamiento(LocalDate lanzamiento) {
-		this.lanzamiento=lanzamiento;
-	}
-	public void setDisponibilidad(int i) {
-		if (i==0) {
-			this.disponibilidad=true;
-			this.regreso=LocalDate.now();
-		} else {
-			this.disponibilidad=false;
-		}
-		
-	}
-	
-	public boolean getDisponibilidad() {
-		return disponibilidad;
-	}
 	
 	public String mostrarDisponibilidad(boolean disponibilidad) {
 		if (disponibilidad==true) {
@@ -168,6 +133,59 @@ public class Biblioteca {
 		}
 		
 	}
+	
+	// SET Y GET
+	public String getNombreLibro() {
+		return nombreLibro;
+	}
+	public String getAutor() {
+		return nombreLibro;
+	}
+	public String getLanzamiento() {
+		return nombreLibro;
+	}
+	public boolean getDisponibilidad() {
+		return disponibilidad;
+	}
+	public LocalDate getRegreso() {
+		return regreso;
+	}
+	public String getNombrePersona() {
+		return nombrePersona;
+	}
+	public String getDni() {
+		return dni;
+	}
+	
+	public void setNombreLibro(String nombreLibro) {
+		this.nombreLibro=nombreLibro;
+	}
+	public void setAutor(String autor) {
+		this.autor=autor;
+	}
+	public void setLanzamiento(LocalDate lanzamiento) {
+		this.lanzamiento=lanzamiento;
+	}
+	public void setDisponibilidad(int i) {
+		if (i==0) {
+			this.disponibilidad=true;
+			this.regreso=LocalDate.now();
+		} else {
+			this.disponibilidad=false;
+		}
+	}
+	public void setRegreso(LocalDate regreso) {
+		this.regreso=regreso;
+	}
+	public void setNombrePersona(String nombrePersona) {
+		this.nombrePersona=nombrePersona;
+	}
+	public void setDni(String dni) {
+		this.dni=dni;
+	}
+	
+	
+	
 
 	@Override
 	public String toString() {
