@@ -70,18 +70,22 @@ public class Biblioteca {
 	}
 	
 	public void crearLibro() {
-		do {
-			this.nombreLibro = JOptionPane.showInputDialog("Ingrese el nombre del libro");
-		} while (!ValidarNombre(nombreLibro));
-		do {
-			this.autor = JOptionPane.showInputDialog("Ingrese el nombre del autor");
-		} while (!ValidarNombre(autor));
-		this.lanzamiento = LocalDate.of(validarNumeros("Ingrese año de lanzamiento"), validarNumeros("Ingrese mes de lanzamiento"), validarNumeros("Ingrese día de lanzamiento"));
-		if (this.lanzamiento.isAfter(LocalDate.now())) {
+		if (nombreLibro.isEmpty()) {
 			do {
-				JOptionPane.showMessageDialog(null, "Hubo un error con la fecha ingresada, vuelva a ingresarla");
-				this.lanzamiento = LocalDate.of(validarNumeros("Ingrese año"), validarNumeros("Ingrese mes"), validarNumeros("Ingrese día"));
-			} while (this.lanzamiento.isAfter(LocalDate.now()));
+				this.nombreLibro = JOptionPane.showInputDialog("Ingrese el nombre del libro");
+			} while (!ValidarNombre(nombreLibro));
+			do {
+				this.autor = JOptionPane.showInputDialog("Ingrese el nombre del autor");
+			} while (!ValidarNombre(autor));
+			this.lanzamiento = LocalDate.of(validarNumeros("Ingrese año de lanzamiento"), validarNumeros("Ingrese mes de lanzamiento"), validarNumeros("Ingrese día de lanzamiento"));
+			if (this.lanzamiento.isAfter(LocalDate.now())) {
+				do {
+					JOptionPane.showMessageDialog(null, "Hubo un error con la fecha ingresada, vuelva a ingresarla");
+					this.lanzamiento = LocalDate.of(validarNumeros("Ingrese año"), validarNumeros("Ingrese mes"), validarNumeros("Ingrese día"));
+				} while (this.lanzamiento.isAfter(LocalDate.now()));
+			}
+		} else {
+			JOptionPane.showMessageDialog(null, "Ya registraste un libro");
 		}
 	}
 	
@@ -107,6 +111,19 @@ public class Biblioteca {
 	
 	public void setLanzamiento(LocalDate lanzamiento) {
 		this.lanzamiento=lanzamiento;
+	}
+	public void setDisponibilidad(int i) {
+		if (i==0) {
+			this.disponibilidad=true;
+			this.regreso=LocalDate.now();
+		} else {
+			this.disponibilidad=false;
+		}
+		
+	}
+	
+	public boolean getDisponibilidad() {
+		return disponibilidad;
 	}
 	
 	public String mostrarDisponibilidad(boolean disponibilidad) {

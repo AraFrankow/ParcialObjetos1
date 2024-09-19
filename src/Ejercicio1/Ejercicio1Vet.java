@@ -14,10 +14,7 @@ public class Ejercicio1Vet {
 			case "Ingrese cliente nuevo":
 				clientes.agregarClientes();
 				break;
-			
-			case "Editar cliente actual":
-				break;
-			
+
 			case "Revise clientes anteriores":
 				JOptionPane.showMessageDialog(null, clientes.getClientes());
 			break;

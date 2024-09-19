@@ -20,7 +20,7 @@ public class Main {
 				break;
 			
 			case "Editar los datos del libro":
-				String[] cambios = {"El nombre del libro", "Al autor del libro", "El año de lanzamiento", "Salir"};
+				String[] cambios = {"El nombre del libro", "Al autor del libro", "El año de lanzamiento", "Disponibilidad" , "Salir"};
 				String cambiar = (String)JOptionPane.showInputDialog(null, "Que quiere cambiar?", null, 0, null, cambios, cambios[0]);
 				switch (cambiar) {
 				case "El nombre del libro":
@@ -33,6 +33,10 @@ public class Main {
 					
 				case "El año de lanzamiento":
 					libro.setLanzamiento(LocalDate.of(libro.validarNumeros("Ingrese año"), libro.validarNumeros("Ingrese mes"), libro.validarNumeros("Ingrese día")));
+					break;
+					
+				case "Disponibilidad":
+					libro.setDisponibilidad(JOptionPane.showConfirmDialog(null, "El libro esta disponible?"));
 					break;
 					
 				case "Salir":
