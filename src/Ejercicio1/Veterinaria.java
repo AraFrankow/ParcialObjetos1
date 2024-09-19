@@ -1,5 +1,6 @@
 package Ejercicio1;
 import java.time.LocalDate;
+import java.time.Period;
 
 import javax.swing.JOptionPane;
 
@@ -77,7 +78,7 @@ public class Veterinaria {
 					this.peso=peso;
 				}
 				public void setCosultaProxima() {
-					this.consultaProxima = LocalDate.of(validarNumeros("Ingrese año"), validarNumeros("Ingrese mes"), validarNumeros("Ingrese dia"));
+					this.consultaProxima = LocalDate.of(validarNumeros("Ingrese año para el turno"), validarNumeros("Ingrese mes para el turno"), validarNumeros("Ingrese dia para el turno"));
 					JOptionPane.showMessageDialog(null, "Agendando proximo turno...");
 				}
 				public void setEstado(boolean estado) {
@@ -145,45 +146,63 @@ public class Veterinaria {
 			return Integer.parseInt(num);
 		}
 				
-		public void agregarClientes() {
+		public void sacarTurno() {
 			do {
 				this.nombreDueño = JOptionPane.showInputDialog("Ingrese el nombre del dueño");
 			} while (!ValidarNombre(nombreDueño));
 			do {
 				this.nombreAnimal = JOptionPane.showInputDialog("Ingrese el nombre del animal");
 			} while (!ValidarNombre(nombreAnimal));
-			do {
-				this.motivo = JOptionPane.showInputDialog("Ingrese el motivo de su consulta");
-			} while (!ValidarNombre(motivo));
-			do {
-				this.peso= JOptionPane.showInputDialog("Ingrese el peso del animal");
-			} while (!ValidarPeso(peso));
-			
-			String[] estadoMascota = {"Esta todo bien","Necesita venir dentro de poco"};
-			int estado= JOptionPane.showOptionDialog(null, "Como se encuentra",null,0,0,null, estadoMascota, estadoMascota[0]);
-			if (estado==0) {
-				this.estado=true;
-			} else {
-				this.estado=false;
-			}
-			
-			int vacunas= JOptionPane.showOptionDialog(null, "Como estan sus vacunas?",null,0,0,null, estadoMascota, estadoMascota[0]);
-			if (vacunas==0) {
-				this.vacunas=true;
-			} else {
-				this.vacunas=false;
-			}
-			
-			if (this.estado==false || this.vacunas==false) {
-				setCosultaProxima();
-			}
+			setCosultaProxima();
 			if (this.consultaProxima.isBefore(LocalDate.now())) {
 				do {
 					JOptionPane.showMessageDialog(null, "Hubo un error con la fecha ingresada, vuelva a ingresarla");
 					setCosultaProxima();
 				} while (this.consultaProxima.isBefore(LocalDate.now()));
 			}
-			this.clientes = this.clientes + "\n Fecha de la consulta: "+consulta+", nombre del dueño: " + nombreDueño + ", nombre de la mascota: " + nombreAnimal + ", motivo de la consulta: "+ motivo + ", peso de la mascota: "+ peso +"kg , estado de la mascota: " + mostrarEstado(this.estado) +", vacunas: "+mostrarEstado(this.vacunas) + ", proxima consulta: "+consultaProxima;
+		}
+		
+		public void diaConsulta() {
+			LocalDate veri = LocalDate.of(validarNumeros("Ingrese año"), validarNumeros("Ingrese mes"), validarNumeros("Ingrese dia"));
+			if (veri.isEqual(consultaProxima)) {
+				JOptionPane.showMessageDialog(null, "Bienvenido al dia de la consulta");
+				do {
+					this.motivo = JOptionPane.showInputDialog("Ingrese el motivo de su consulta");
+				} while (!ValidarNombre(motivo));
+				do {
+					this.peso= JOptionPane.showInputDialog("Ingrese el peso del animal");
+				} while (!ValidarPeso(peso));
+				
+				String[] estadoMascota = {"Esta todo bien","Necesita venir dentro de poco"};
+				int estado= JOptionPane.showOptionDialog(null, "Como se encuentra",null,0,0,null, estadoMascota, estadoMascota[0]);
+				if (estado==0) {
+					this.estado=true;
+				} else {
+					this.estado=false;
+				}
+				int vacunas= JOptionPane.showOptionDialog(null, "Como estan sus vacunas?",null,0,0,null, estadoMascota, estadoMascota[0]);
+				if (vacunas==0) {
+					this.vacunas=true;
+				} else {
+					this.vacunas=false;
+				}
+				
+				if (this.estado==false || this.vacunas==false) {
+					setCosultaProxima();
+				}
+				if (this.consultaProxima.isBefore(LocalDate.now())) {
+					do {
+						JOptionPane.showMessageDialog(null, "Hubo un error con la fecha ingresada, vuelva a ingresarla");
+						setCosultaProxima();
+					} while (this.consultaProxima.isBefore(LocalDate.now()));
+				}
+				this.clientes = this.clientes + "\n Fecha de la consulta: "+consulta+", nombre del dueño: " + nombreDueño + ", nombre de la mascota: " + nombreAnimal + ", motivo de la consulta: "+ motivo + ", peso de la mascota: "+ peso +"kg , estado de la mascota: " + mostrarEstado(this.estado) +", vacunas: "+mostrarEstado(this.vacunas) + ", proxima consulta: "+consultaProxima;
+			} else if (veri.isBefore(consultaProxima)) {
+				JOptionPane.showMessageDialog(null, "Todavia faltan "+Period.between(veri, consultaProxima)+" dias");
+			} else {
+				JOptionPane.showMessageDialog(null, "Te pasaste del dia de la consulta, vuelva a sacar turno");
+			}
+			
 		}
 		
 		
