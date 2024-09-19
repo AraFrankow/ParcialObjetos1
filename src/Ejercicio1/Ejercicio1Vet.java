@@ -6,7 +6,7 @@ public class Ejercicio1Vet {
 
 	public static void main(String[] args) {
 		Veterinaria clientes = new Veterinaria();
-		String[] menu = {"Ingrese cliente nuevo", "Editar cliente actual", "Revise clientes anteriores" , "Salir"};
+		String[] menu = {"Ingrese cliente nuevo", "Revise clientes anteriores" , "Salir"};
 		String eleccion;
 		do {
 			eleccion = (String)JOptionPane.showInputDialog(null, "Que quiere hacer?", null, 0, null, menu, menu[0]);
@@ -21,7 +21,6 @@ public class Ejercicio1Vet {
 			
 			case "Salir":
 				JOptionPane.showMessageDialog(null, "Saliendo...", null, JOptionPane.DEFAULT_OPTION, new ImageIcon(Ejercicio1Vet.class.getResource("img/salir.gif")));
-
 			break;
 			}
 		} while (!eleccion.equals("Salir"));
