@@ -89,8 +89,6 @@ public class Biblioteca {
 		}
 	}
 	
-	
-	
 	public String mostrarDisponibilidad(boolean disponibilidad) {
 		if (disponibilidad==true) {
 			return "Disponible";
