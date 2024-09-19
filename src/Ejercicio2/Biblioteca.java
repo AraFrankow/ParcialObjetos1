@@ -9,14 +9,14 @@ public class Biblioteca {
 	private String autor;
 	private LocalDate lanzamiento;
 	private boolean disponibilidad;
-	private LocalDate estado;
+	private LocalDate regreso;
 	private String nombrePersona;
 	private String dni;
 	
-	public Biblioteca(String nombreLibro, boolean disponibilidad, LocalDate estado, String nombrePersona, String dni) {
+	public Biblioteca(String nombreLibro, boolean disponibilidad, LocalDate regreso, String nombrePersona, String dni) {
 		this.nombreLibro=nombreLibro;
 		this.disponibilidad=disponibilidad;
-		this.estado=estado;
+		this.regreso=regreso;
 		this.nombrePersona=nombrePersona;
 		this.dni=dni;
 	}
@@ -24,7 +24,7 @@ public class Biblioteca {
 	public Biblioteca() {
 		this.nombreLibro="";
 		this.disponibilidad=true;
-		this.estado=LocalDate.now();
+		this.regreso=LocalDate.now();
 		this.nombrePersona="";
 		this.dni="";
 	}
@@ -84,6 +84,82 @@ public class Biblioteca {
 			} while (this.lanzamiento.isAfter(LocalDate.now()));
 		}
 	}
+	
+	public String getNombreLibro() {
+		return nombreLibro;
+	}
+	
+	public String getAutor() {
+		return nombreLibro;
+	}
+	
+	public String getLanzamiento() {
+		return nombreLibro;
+	}
+	
+	public void setNombreLibro(String nombreLibro) {
+		this.nombreLibro=nombreLibro;
+	}
+	
+	public void setAutor(String autor) {
+		this.autor=autor;
+	}
+	
+	public void setLanzamiento(LocalDate lanzamiento) {
+		this.lanzamiento=lanzamiento;
+	}
+	
+	public String mostrarDisponibilidad(boolean disponibilidad) {
+		if (disponibilidad==true) {
+			return "Disponible";
+		} else {
+			return "Vuelva a preguntar pronto";
+		}
+	}
+	
+	public static boolean ValidarDni(String dni) {
+		boolean letra = false;
+		if (dni.length()<7 || dni.length()>8) {
+			return false;
+		} else {
+			for (int i = 0; i < dni.length(); i++) {
+				if (Character.isLetter(dni.charAt(i))) {
+					letra=true;
+				}
+			}
+			if (letra==true) {
+				JOptionPane.showMessageDialog(null, "No puede tener letras el DNI");
+				return false;
+			} else {
+				return true;
+			}
+		}	
+	}
+	
+	public void reseva() {
+		if (this.disponibilidad==true) {
+			do {
+				this.nombrePersona = JOptionPane.showInputDialog("Ingrese el nombre del usuario");
+			} while (!ValidarNombre(nombrePersona));
+			do {
+				this.dni = JOptionPane.showInputDialog("Ingrese el dni de: "+nombrePersona);
+			} while (!ValidarDni(dni));
+			this.regreso = regreso.plusDays(3);
+			disponibilidad=false;
+		} else {
+			JOptionPane.showMessageDialog(null, "El libro ya fue reservado");
+		}
+		
+	}
+
+	@Override
+	public String toString() {
+		return "Biblioteca Lectores Felices: \n Nombre del libro: " + nombreLibro + "\n Autor: " + autor + "\n Lanzamiento: " + lanzamiento
+				+ "\n Disponibilidad: " + mostrarDisponibilidad(disponibilidad) + "\n Regreso: " + regreso + "\n Nombre de la persona: " + nombrePersona
+				+ "\n Dni: " + dni;
+	}
+	
+	
 	
 	
 	
